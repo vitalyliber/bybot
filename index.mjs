@@ -75,7 +75,7 @@ bot.on("callback_query", (callbackQuery) => {
             description: "Описание вашего товара",
             payload: "item_001",
             currency: "XTR",
-            prices: [{ label: "Товар", amount: 100 }],
+            prices: [{ label: "Товар", amount: 1 }],
             start_parameter: "test",
             provider_token: "",
           }),
