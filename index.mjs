@@ -1,8 +1,11 @@
 import TelegramBot from "node-telegram-bot-api";
 import axios from "axios";
+import dotenv from "dotenv";
 
-// Замените на ваш токен от @BotFather
-const token = "";
+dotenv.config();
+
+const token = process.env.TELEGRAM_TOKEN;
+
 const bot = new TelegramBot(token, { polling: true });
 
 // URL для запроса после оплаты (пример)
