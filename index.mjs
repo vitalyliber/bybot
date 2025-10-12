@@ -22,13 +22,47 @@ bot.onText(/\/start/, (msg) => {
   );
 });
 
+// Команда /refund
+bot.onText(/\/refund (.+)/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const telegramPaymentChargeId = match[1]; // Получаем ID транзакции из аргумента команды
+
+  try {
+    const response = await fetch(
+      `https://api.telegram.org/bot${token}/refundStarPayment`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: chatId,
+          telegram_payment_charge_id: telegramPaymentChargeId,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.ok) {
+      bot.sendMessage(chatId, "Возврат Telegram Stars успешно выполнен!");
+    } else {
+      bot.sendMessage(
+        chatId,
+        `Ошибка при возврате: ${data.description || "Неизвестная ошибка"}`
+      );
+    }
+  } catch (error) {
+    bot.sendMessage(chatId, "Ошибка при выполнении возврата.");
+    console.error("Ошибка возврата:", error.message);
+  }
+});
+
 // Обработка нажатия кнопки "Купить товар"
 bot.on("callback_query", (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   if (callbackQuery.data === "buy") {
     async function sendTestInvoice() {
       const response = await fetch(
-        `https://api.telegram.org/bot${token}/test/sendInvoice`,
+        `https://api.telegram.org/bot${token}/sendInvoice`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -63,10 +97,12 @@ bot.on("successful_payment", async (msg) => {
   const chatId = msg.chat.id;
   const payment = msg.successful_payment;
 
-  // Отправляем сообщение пользователю
+  // Отправляем сообщение пользователю с ID транзакции для возврата
   bot.sendMessage(
     chatId,
-    `Оплата на сумму ${payment.total_amount} Telegram Stars прошла успешно!`
+    `Оплата на сумму ${payment.total_amount} Telegram Stars прошла успешно! ` +
+      `ID транзакции: ${payment.telegram_payment_charge_id}. ` +
+      `Для возврата используйте команду /refund ${payment.telegram_payment_charge_id}`
   );
 
   // Отправляем запрос на сервер
