@@ -2,7 +2,7 @@ import TelegramBot from "node-telegram-bot-api";
 import axios from "axios";
 
 // Замените на ваш токен от @BotFather
-const token = "8485116769:AAGXzACldkifCghcsh6YOFl1d5lJC96b258";
+const token = "";
 const bot = new TelegramBot(token, { polling: true });
 
 // URL для запроса после оплаты (пример)
