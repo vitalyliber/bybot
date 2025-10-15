@@ -8,10 +8,6 @@ const token = process.env.TELEGRAM_TOKEN;
 
 const bot = new TelegramBot(token, { polling: true });
 
-// URL для запроса после оплаты (пример)
-const SERVER_URL = "https://api.example.com/confirm-payment";
-
-// Команда /start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(
@@ -25,10 +21,9 @@ bot.onText(/\/start/, (msg) => {
   );
 });
 
-// Команда /refund
 bot.onText(/\/refund (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
-  const telegramPaymentChargeId = match[1]; // Получаем ID транзакции из аргумента команды
+  const telegramPaymentChargeId = match[1];
 
   try {
     const response = await fetch(
@@ -59,7 +54,6 @@ bot.onText(/\/refund (.+)/, async (msg, match) => {
   }
 });
 
-// Обработка нажатия кнопки "Купить товар"
 bot.on("callback_query", (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   if (callbackQuery.data === "buy") {
@@ -89,18 +83,14 @@ bot.on("callback_query", (callbackQuery) => {
   }
 });
 
-// Обработка предпроверки платежа
 bot.on("pre_checkout_query", (preCheckoutQuery) => {
-  // Подтверждаем предпроверку платежа
   bot.answerPreCheckoutQuery(preCheckoutQuery.id, true);
 });
 
-// Обработка успешной оплаты
 bot.on("successful_payment", async (msg) => {
   const chatId = msg.chat.id;
   const payment = msg.successful_payment;
 
-  // Отправляем сообщение пользователю с ID транзакции для возврата
   bot.sendMessage(
     chatId,
     `Оплата на сумму ${payment.total_amount} Telegram Stars прошла успешно! ` +
@@ -108,9 +98,8 @@ bot.on("successful_payment", async (msg) => {
       `Для возврата используйте команду /refund ${payment.telegram_payment_charge_id}`
   );
 
-  // Отправляем запрос на сервер
   try {
-    const response = await axios.post(SERVER_URL, {
+    const response = await axios.post(process.env.SERVER_URL, {
       userId: chatId,
       orderId: payment.provider_payment_charge_id,
       amount: payment.total_amount,
@@ -127,9 +116,8 @@ bot.on("successful_payment", async (msg) => {
   }
 });
 
-// Обработка ошибок
 bot.on("polling_error", (error) => {
   console.error("Ошибка polling:", error);
 });
 
-console.log("Бот запущен...");
+console.log("Bot is running...");
