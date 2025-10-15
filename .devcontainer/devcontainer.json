@@ -3,13 +3,10 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
-      ]
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
     }
   },
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "yarn install && ssh-add /home/vscode/.ssh/id_rsa || true",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22"
