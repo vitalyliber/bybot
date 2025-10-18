@@ -9,11 +9,11 @@ const startMessage = (serverUserId) => `Hello 👋
 Your Server Id: ${serverUserId}
 `;
 
-const start = (msg, match) => {
+const start = async (msg, match) => {
   const chatId = msg.chat.id;
   const serverUserId = match[1];
 
-  bot.sendMessage(chatId, startMessage(serverUserId));
+  await bot.sendMessage(chatId, startMessage(serverUserId));
   sendInvoice(chatId, 1);
 };
 

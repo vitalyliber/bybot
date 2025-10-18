@@ -8,9 +8,10 @@ const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
 // Direct match: /\/start/
 // String params: /\/start (.+)/
 bot.onText(/\/start (.+)/, start);
-bot.onText(/\/refund (.+)/, refund);
+bot.onText(/\/secret_refund (.+)/, refund);
 
 bot.on("pre_checkout_query", (preCheckoutQuery) => {
+  console.log("pre_checkout_query", preCheckoutQuery);
   bot.answerPreCheckoutQuery(preCheckoutQuery.id, true);
 });
 
