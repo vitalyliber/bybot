@@ -1,8 +1,6 @@
-const token = process.env.TELEGRAM_TOKEN;
-
 export async function sendInvoice(chatId) {
   const response = await fetch(
-    `https://api.telegram.org/bot${token}/sendInvoice`,
+    `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendInvoice`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,14 +1,12 @@
 import bot from "../bot.mjs";
 
-const token = process.env.TELEGRAM_TOKEN;
-
 const refund = async (msg, match) => {
   const chatId = msg.chat.id;
   const telegramPaymentChargeId = match[1];
 
   try {
     const response = await fetch(
-      `https://api.telegram.org/bot${token}/refundStarPayment`,
+      `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/refundStarPayment`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

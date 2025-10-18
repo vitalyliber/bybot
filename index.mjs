@@ -1,14 +1,9 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import TelegramBot from "node-telegram-bot-api";
 import refund from "./handlers/refund.mjs";
 import start from "./handlers/start.mjs";
 import successful_payment from "./handlers/successful_payment.mjs";
 
-const token = process.env.TELEGRAM_TOKEN;
-
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
 
 // Direct match: /\/start/
 // String params: /\/start (.+)/

@@ -6,11 +6,9 @@
       "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
     }
   },
-  "postCreateCommand": "yarn install && ssh-add /home/vscode/.ssh/id_rsa || true",
+  "postCreateCommand": "curl -fsSL https://bun.sh/install | bash && bun install && ssh-add /home/vscode/.ssh/id_rsa || true",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    },
+    "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/git:1": {}
   },
   "mounts": [
