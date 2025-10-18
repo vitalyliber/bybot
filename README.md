@@ -6,10 +6,16 @@
 
 ```bash
 TELEGRAM_TOKEN=xyz:yxz
+SERVER_URL=https://example.com/user/id/premium_activate
+SUPPORT_LINK=https://t.me/example_support
+PRODUCT_TITLE=Premium
+PRODUCT_DESC=Unlock a world of premium features.
+PRODUCT_PRICE=1
+SUCCESSFUL_PAYMENT_MESSAGE=Your Premium is activated 🎁\nEnjoy!
 ```
 
 3. Run the bot.
 
 ```bash
-yarn dev
+bun run dev
 ```
