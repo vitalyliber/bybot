@@ -6,7 +6,7 @@
 
 ```bash
 TELEGRAM_TOKEN=xyz:yxz
-SERVER_URL=https://example.com/user/id/premium_activate
+SUCCESSFUL_PAYMENT_URL=https://example.com/user/id/premium_activate
 SUPPORT_LINK=https://t.me/example_support
 PRODUCT_TITLE=Premium
 PRODUCT_DESC=Unlock a world of premium features.

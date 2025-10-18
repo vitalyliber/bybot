@@ -18,7 +18,7 @@ const successful_payment = async (msg) => {
   bot.sendMessage(chatId, message(payment.total_amount));
 
   try {
-    const response = await axios.post(process.env.SERVER_URL, {
+    const response = await axios.post(process.env.SUCCESSFUL_PAYMENT_URL, {
       userId: chatId,
       orderId: payment.provider_payment_charge_id,
       amount: payment.total_amount,
