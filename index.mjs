@@ -2,6 +2,7 @@ import TelegramBot from "node-telegram-bot-api";
 import refund from "./handlers/refund.mjs";
 import start from "./handlers/start.mjs";
 import successful_payment from "./handlers/successful_payment.mjs";
+import fetchUserIdFromInvoicePayload from "./helpers/fetchUserIdFromInvoicePayload";
 
 const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
 
@@ -12,7 +13,14 @@ bot.onText(/\/secret_refund (.+)/, refund);
 
 bot.on("pre_checkout_query", (preCheckoutQuery) => {
   console.log("pre_checkout_query", preCheckoutQuery);
-  bot.answerPreCheckoutQuery(preCheckoutQuery.id, true);
+  if (fetchUserIdFromInvoicePayload(preCheckoutQuery.invoice_payload)) {
+    bot.answerPreCheckoutQuery(preCheckoutQuery.id, true);
+  } else {
+    bot.sendMessage(
+      chatId,
+      "Something went wrong (server user ID is not provided). Please contact support."
+    );
+  }
 });
 
 bot.on("successful_payment", successful_payment);

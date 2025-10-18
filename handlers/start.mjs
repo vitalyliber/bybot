@@ -14,7 +14,7 @@ const start = async (msg, match) => {
   const serverUserId = match[1];
 
   await bot.sendMessage(chatId, startMessage(serverUserId));
-  sendInvoice(chatId, 1);
+  sendInvoice(chatId, serverUserId);
 };
 
 export default start;

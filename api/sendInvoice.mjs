@@ -1,4 +1,4 @@
-export async function sendInvoice(chatId) {
+export async function sendInvoice(chatId, serverUserId) {
   const response = await fetch(
     `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendInvoice`,
     {
@@ -8,7 +8,7 @@ export async function sendInvoice(chatId) {
         chat_id: chatId,
         title: process.env.PRODUCT_TITLE,
         description: process.env.PRODUCT_DESC,
-        payload: "item_001",
+        payload: `userId:${serverUserId}`,
         currency: "XTR",
         prices: [{ label: "Товар", amount: process.env.PRODUCT_PRICE }],
         start_parameter: "test",

@@ -26,7 +26,10 @@ const successful_payment = async (msg) => {
       item: payment.invoice_payload,
     });
   } catch (error) {
-    bot.sendMessage(chatId, "Error sending request to the server.");
+    bot.sendMessage(
+      chatId,
+      "Error sending request to the server. Please contact support"
+    );
     console.error("Request error:", error.message);
   }
 };
