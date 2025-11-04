@@ -1,15 +1,15 @@
 {
   "name": "Node.js & Yarn (Telegram Bot)",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "image": "ghcr.io/rails/devcontainer/images/ruby:3.4.5",
   "customizations": {
     "vscode": {
       "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
     }
   },
-  "postCreateCommand": "curl -fsSL https://bun.sh/install | bash && bun install && ssh-add /home/vscode/.ssh/id_rsa || true",
+  "postCreateCommand": "ssh-add /home/vscode/.ssh/id_rsa || true",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/rails/devcontainer/features/bun:latest": {}
   },
   "mounts": [
     "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
