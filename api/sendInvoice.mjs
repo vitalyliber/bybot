@@ -8,7 +8,7 @@ export async function sendInvoice(chatId, serverUserId) {
         chat_id: chatId,
         title: process.env.PRODUCT_TITLE,
         description: process.env.PRODUCT_DESC,
-        payload: `userId:${serverUserId}`,
+        payload: serverUserId,
         currency: "XTR",
         prices: [{ label: "Товар", amount: process.env.PRODUCT_PRICE }],
         start_parameter: "test",
