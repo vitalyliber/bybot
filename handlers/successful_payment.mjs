@@ -23,7 +23,7 @@ const successful_payment = async (msg) => {
       orderId: payment.provider_payment_charge_id,
       amount: payment.total_amount,
       currency: payment.currency, // XTR
-      item: payment.invoice_payload,
+      invoice_payload: payment.invoice_payload,
     });
   } catch (error) {
     bot.sendMessage(
